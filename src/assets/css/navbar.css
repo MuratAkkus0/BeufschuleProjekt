@@ -1,0 +1,32 @@
+
+menu{
+    height: 100%;
+    border: 1px solid black;
+    grid-column: 1/3;
+    grid-row: 1/11;
+    background-color: black;
+}
+
+.app__logo{
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-style: italic;
+    border-bottom: 1px solid lightgray;
+}
+
+.menu__item{
+    cursor: pointer;
+    color: white;
+    padding: 1rem;
+    text-align: left;
+    list-style: none;
+    border-bottom:1px solid lightgray;
+    transition: .3s all;
+}
+
+.menu__item:hover{
+    letter-spacing: 1px;
+}
