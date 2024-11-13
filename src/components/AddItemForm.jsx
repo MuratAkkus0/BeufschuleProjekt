@@ -3,9 +3,13 @@ import "../assets/css/AddItemForm.css";
 function AddItemForm() {
   const [deviceTyp, setDeviceTyp] = useState("Laptop");
   const [isLastStep, setIsLastStep] = useState(false);
-  const [formStep, setFormStep] = useState(3);
+  const [formStep, setFormStep] = useState(1);
   const [deviceId, setDeviceId] = useState(0);
   const newDevice = useRef({});
+  const [deviceList, setDeviceList] = useState(
+    JSON.parse(localStorage.getItem("devices")) ?? []
+  );
+  const totalFormSteps = useRef(5);
   const carePeriods = [1, 3, 6, 12, 24, 36];
   const personalList = [
     {
@@ -37,6 +41,7 @@ function AddItemForm() {
       jobTitle: "Senior",
     },
   ];
+
   const deviceLocationsList = [
     {
       ortId: 1,
@@ -64,24 +69,49 @@ function AddItemForm() {
     generateDeviceId();
   }, []);
 
-  const generateDeviceId = () => {
-    let id = Math.floor(Math.random() * 1000);
-    setDeviceId(id);
-  };
   useEffect(() => {
-    if (formStep === 1) {
+    if (formStep === totalFormSteps.current) {
       setIsLastStep(true);
     }
   }, [formStep]);
 
-  const checkStep = () => {
-    if (formStep > 1) {
-      setFormStep(formStep - 1);
+  const generateDeviceId = () => {
+    let isUnique = true;
+    let id = Math.floor(Math.random() * 1000);
+    deviceList.forEach((item) => {
+      if (item.id == id) isUnique = false;
+    });
+    if (isUnique) {
+      setDeviceId(id);
+    } else {
+      generateDeviceId();
     }
   };
+
+  const checkStep = () => {
+    if (formStep <= totalFormSteps.current) {
+      setFormStep(formStep + 1);
+    }
+  };
+
+  const checkDeviceIds = () => {};
+
+  const setItemToLS = (item) => {
+    let isUnique = true;
+    deviceList.forEach((device) => {
+      if (device.id == item.id) isUnique = false;
+    });
+    if (isUnique) {
+      deviceList.push(item);
+      localStorage.setItem("devices", JSON.stringify(deviceList));
+    } else {
+      alert("This device is already exists.");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.deviceMac.value);
+    console.log(formStep);
     if (isLastStep) {
       newDevice.current = {
         id: deviceId,
@@ -91,18 +121,22 @@ function AddItemForm() {
         purchaseDate: e.target.purchaseDate.value,
         MAC: e.target.deviceMac.value,
       };
+      setItemToLS(newDevice.current);
     }
-    console.log(newDevice, deviceTyp);
   };
   return (
     <>
       <form onSubmit={handleSubmit} className="add__item--form" id="addItem">
         <div className="form__part">
-          <label htmlFor="deviceId">Gerät Id :</label>
+          <label className="labels" htmlFor="deviceId">
+            Gerät Id :
+          </label>
           <input id="deviceId" type="text" disabled={true} value={deviceId} />
         </div>
         <div className="form__part">
-          <label htmlFor="deviceType">Gerät Typ:</label>
+          <label className="labels" htmlFor="deviceType">
+            Gerät Typ:
+          </label>
           <select
             value={deviceTyp}
             onChange={(e) => setDeviceTyp(e.target.value)}
@@ -113,11 +147,13 @@ function AddItemForm() {
             <option value="Desktop Computer">Desktop Computer</option>
           </select>
         </div>
-        {formStep <= 2 ? (
+        {formStep >= 2 ? (
           <div className="form__part">
             {deviceTyp === "Desktop Computer" ? (
               <>
-                <label htmlFor="selectLocation">Raum:</label>
+                <label className="labels" htmlFor="selectLocation">
+                  Raum:
+                </label>
                 <select name="selectLocation" id="selectLocation">
                   {deviceLocationsList.map((item, index) => {
                     return (
@@ -130,7 +166,9 @@ function AddItemForm() {
               </>
             ) : (
               <>
-                <label htmlFor="deviceOwner">Gerätebesitzer:</label>
+                <label className="labels" htmlFor="deviceOwner">
+                  Gerätebesitzer:
+                </label>
                 <select name="deviceOwner" id="deviceOwner">
                   {personalList.map((item, index) => {
                     return (
@@ -146,9 +184,11 @@ function AddItemForm() {
         ) : (
           ""
         )}
-        {formStep <= 1 ? (
+        {formStep >= 3 ? (
           <div className="form__part">
-            <label htmlFor="carePeriod">Wartungsperiode:</label>
+            <label className="labels" htmlFor="carePeriod">
+              Wartungsperiode:
+            </label>
             <select name="carePeriod" id="carePeriod">
               {carePeriods.map((item, index) => (
                 <option key={index} value={item}>
@@ -160,19 +200,32 @@ function AddItemForm() {
         ) : (
           ""
         )}
-        <div className="form__part">
-          <label htmlFor="deviceMAC">Gerät Mac Adresse (optional): </label>
-          <input
-            type="text"
-            id="deviceMac"
-            placeholder="etc. 00:00:5e:00:53:af"
-            pattern="^([0-9A-Fa-f]{2}[:\-]){5}([0-9A-Fa-f]{2})$"
-          />
-        </div>
-        <div className="form__part">
-          <label htmlFor="purchaseDate">Kaufdatum (optional):</label>
-          <input type="date" name="purchaseDate" id="purchaseDate" />
-        </div>
+
+        {formStep >= 4 ? (
+          <div className="form__part">
+            <label className="labels" htmlFor="deviceMAC">
+              Gerät Mac Adresse (optional):{" "}
+            </label>
+            <input
+              type="text"
+              id="deviceMac"
+              placeholder="etc. 00:00:5e:00:53:af"
+              pattern="^([0-9A-Fa-f]{2}[:\-]){5}([0-9A-Fa-f]{2})$"
+            />
+          </div>
+        ) : (
+          ""
+        )}
+        {formStep >= 5 ? (
+          <div className="form__part">
+            <label className="labels" htmlFor="purchaseDate">
+              Kaufdatum (optional):
+            </label>
+            <input type="date" name="purchaseDate" id="purchaseDate" />
+          </div>
+        ) : (
+          ""
+        )}
         <button onClick={checkStep} type="submit" className="btn">
           {isLastStep ? "Add Item" : "Next"}
         </button>

@@ -55,6 +55,4 @@
   align-self: flex-end;
   transition: 0.3s all;
 }
-#sendEmailBtn:active {
-  transform: scale(0.98);
-}
+
