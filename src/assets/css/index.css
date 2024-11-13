@@ -34,10 +34,23 @@ body {
   align-items: center;
 }
 
+/* Add Forms Container */
+.add__form--container {
+  width: 95%;
+  height: fit-content;
+  border: 1px solid var(--main-border-color);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 3rem;
+  transition: 0.3s all;
+}
+
 /* For All View Containers */
 .view__container {
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
   grid-column: 3/11;
   grid-row: 1/11;
   overflow-y: auto;
@@ -49,12 +62,6 @@ body {
   flex-direction: column;
   gap: 1rem;
   padding: 2rem 0;
-}
-
-/* Add Item View Container */
-.add__item--container {
-  display: flex;
-  justify-content: center;
 }
 
 .show__more--btn {

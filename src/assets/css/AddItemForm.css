@@ -1,12 +1,3 @@
-.add__item--form {
-  width: 95%;
-  height: fit-content;
-  border: 1px solid var(--main-border-color);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-top: 3rem;
-  transition: 0.3s all;
-}
 .form__part {
   width: 100%;
   height: 4rem;

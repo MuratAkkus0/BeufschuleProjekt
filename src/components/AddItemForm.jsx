@@ -9,38 +9,11 @@ function AddItemForm() {
   const [deviceList, setDeviceList] = useState(
     JSON.parse(localStorage.getItem("devices")) ?? []
   );
+  const [personalList, setPersonalList] = useState(
+    JSON.parse(localStorage.getItem("personalList")) ?? []
+  );
   const totalFormSteps = useRef(5);
   const carePeriods = [1, 3, 6, 12, 24, 36];
-  const personalList = [
-    {
-      id: 1,
-      name: "Murat",
-      surname: "Akkus",
-      departmant: "Marketing",
-      jobTitle: "Senior",
-    },
-    {
-      id: 1,
-      name: "Dimo",
-      surname: "Backer",
-      departmant: "Marketing",
-      jobTitle: "Senior",
-    },
-    {
-      id: 1,
-      name: "Kjiel",
-      surname: "Backer",
-      departmant: "Marketing",
-      jobTitle: "Senior",
-    },
-    {
-      id: 1,
-      name: "David",
-      surname: "Backer",
-      departmant: "Marketing",
-      jobTitle: "Senior",
-    },
-  ];
 
   const deviceLocationsList = [
     {
@@ -122,11 +95,16 @@ function AddItemForm() {
         MAC: e.target.deviceMac.value,
       };
       setItemToLS(newDevice.current);
+      generateDeviceId();
     }
   };
   return (
     <>
-      <form onSubmit={handleSubmit} className="add__item--form" id="addItem">
+      <form
+        onSubmit={handleSubmit}
+        className="add__form--container"
+        id="addItem"
+      >
         <div className="form__part">
           <label className="labels" htmlFor="deviceId">
             Gerät Id :
