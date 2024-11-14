@@ -65,58 +65,57 @@ export default function AddPersonalForm() {
     <>
       <form onSubmit={handleSubmit} className="add__form--container">
         <div className="form__part">
-          <label
-            onChange={handleInputChange}
-            className="labels"
-            htmlFor="personId"
-          >
+          <label className="labels" htmlFor="id">
             Id :
           </label>
-          <input value={personId} type="text" id="personId" disabled={true} />
+          <input value={personId} type="text" id="id" disabled={true} />
         </div>
         <div className="form__part">
-          <label className="labels" htmlFor="personName">
+          <label className="labels" htmlFor="name">
             Name :
           </label>
           <input
             onChange={handleInputChange}
             type="text"
-            name="personName"
+            name="name"
             id="personName"
             value={formData.name}
           />
         </div>
         <div className="form__part">
-          <label className="labels" htmlFor="personSurname">
+          <label className="labels" htmlFor="surname">
             Surname :
           </label>
           <input
             value={formData.surname}
             onChange={handleInputChange}
             type="text"
-            id="personSurname"
+            name="surname"
+            id="surname"
           />
         </div>
         <div className="form__part">
-          <label className="labels" htmlFor="personDep">
+          <label className="labels" htmlFor="department">
             Department :
           </label>
           <input
             value={formData.department}
             onChange={handleInputChange}
             type="text"
-            id="personDep"
+            id="department"
+            name="department"
           />
         </div>
         <div className="form__part">
-          <label className="labels" htmlFor="personJobTitle">
+          <label className="labels" htmlFor="jobTitle">
             Job Title :
           </label>
           <input
             value={formData.jobTitle}
             onChange={handleInputChange}
             type="text"
-            id="personJobTitle"
+            id="jobTitle"
+            name="jobTitle"
           />
         </div>
         <button className="btn">Add Person</button>

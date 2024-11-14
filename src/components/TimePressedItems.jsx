@@ -10,7 +10,6 @@ export default function TimePressedItems() {
           <ItemCard />
           <ItemCard />
           <ItemCard />
-          <ItemCard />
         </div>
         <div className="show__more--btn">
           <a href="#" className="btn">
