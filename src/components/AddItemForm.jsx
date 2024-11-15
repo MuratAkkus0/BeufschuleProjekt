@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import "../assets/css/AddItemForm.css";
+import FormPartInput from "./formParts/FormPartInput";
+import FormPartSelect from "./formParts/FormPartSelect";
+import FormPartDate from "./formParts/FormPartDate";
 function AddItemForm() {
   const [deviceTyp, setDeviceTyp] = useState("Laptop");
   const [isLastStep, setIsLastStep] = useState(false);
@@ -12,31 +15,11 @@ function AddItemForm() {
   const [personalList, setPersonalList] = useState(
     JSON.parse(localStorage.getItem("personalList")) ?? []
   );
-  const totalFormSteps = useRef(5);
+  const [roomList, setRoomList] = useState(
+    JSON.parse(localStorage.getItem("roomList")) ?? []
+  );
+  const totalFormSteps = useRef(6);
   const carePeriods = [1, 3, 6, 12, 24, 36];
-
-  const deviceLocationsList = [
-    {
-      ortId: 1,
-      ortName: "Raum 143",
-      ortCapacity: 12,
-    },
-    {
-      ortId: 2,
-      ortName: "Raum 144",
-      ortCapacity: 12,
-    },
-    {
-      ortId: 3,
-      ortName: "Raum 145",
-      ortCapacity: 12,
-    },
-    {
-      ortId: 4,
-      ortName: "Raum 146",
-      ortCapacity: 12,
-    },
-  ];
 
   useEffect(() => {
     generateDeviceId();
@@ -49,11 +32,8 @@ function AddItemForm() {
   }, [formStep]);
 
   const generateDeviceId = () => {
-    let isUnique = true;
     let id = Math.floor(Math.random() * 1000);
-    deviceList.forEach((item) => {
-      if (item.id == id) isUnique = false;
-    });
+    let isUnique = !deviceList.some((device) => device.id == id);
     if (isUnique) {
       setDeviceId(id);
     } else {
@@ -84,16 +64,45 @@ function AddItemForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formStep);
+
     if (isLastStep) {
+      //if last care date not older than purchase date and if it exists control
+      let lastCareDate =
+        new Date(e.target.lastCareDate.value) >=
+        new Date(e.target.purchaseDate.value)
+          ? e.target.lastCareDate.value
+          : e.target.purchaseDate.value;
+
+      let diffLastCareToday = new Date(
+        new Date() - new Date(lastCareDate)
+      ).getMonth();
+
       newDevice.current = {
         id: deviceId,
         name: deviceTyp.split(" ")[0] + "-" + deviceId,
         typ: deviceTyp,
         carePeriod: e.target.carePeriod.value,
         purchaseDate: e.target.purchaseDate.value,
-        MAC: e.target.deviceMac.value,
+        MAC: e.target.deviceMAC.value ?? "",
+
+        [deviceTyp == "Laptop" ? "ownerId" : "roomId"]: e.target.location.value,
+
+        lastCareDate: lastCareDate,
+        createDate: new Date().toJSON().slice(0, 10),
+
+        nextCareDate: new Date(
+          new Date(lastCareDate).setMonth(
+            new Date(lastCareDate).getMonth() + +e.target.carePeriod.value
+          ) >= new Date()
+            ? new Date(lastCareDate).setMonth(
+                new Date(lastCareDate).getMonth() + +e.target.carePeriod.value
+              )
+            : new Date()
+        )
+          .toJSON()
+          .slice(0, 10),
       };
+
       setItemToLS(newDevice.current);
       generateDeviceId();
     }
@@ -105,102 +114,89 @@ function AddItemForm() {
         className="add__form--container"
         id="addItem"
       >
-        <div className="form__part">
-          <label className="labels" htmlFor="deviceId">
-            Gerät Id :
-          </label>
-          <input id="deviceId" type="text" disabled={true} value={deviceId} />
-        </div>
-        <div className="form__part">
-          <label className="labels" htmlFor="deviceType">
-            Gerät Typ:
-          </label>
-          <select
-            value={deviceTyp}
-            onChange={(e) => setDeviceTyp(e.target.value)}
-            name="deviceType"
-            id="deviceType"
-          >
-            <option value="Laptop">Laptop</option>
-            <option value="Desktop Computer">Desktop Computer</option>
-          </select>
-        </div>
+        <FormPartInput
+          labelText="Gerät Id :"
+          labelFor="deviceId"
+          inputValue={deviceId}
+          isDisabled={true}
+        />
+        <FormPartSelect
+          selectValue={deviceTyp}
+          onValueChange={(e) => setDeviceTyp(e.target.value)}
+          labelText="Gerät Typ:"
+          labelFor="deviceType"
+          optionList={["Laptop", "Desktop Computer"]}
+        />
+
         {formStep >= 2 ? (
-          <div className="form__part">
+          <>
             {deviceTyp === "Desktop Computer" ? (
               <>
-                <label className="labels" htmlFor="selectLocation">
-                  Raum:
-                </label>
-                <select name="selectLocation" id="selectLocation">
-                  {deviceLocationsList.map((item, index) => {
-                    return (
-                      <option key={index} value={item.ortName}>
-                        {item.ortName}
-                      </option>
-                    );
-                  })}
-                </select>
+                <FormPartSelect
+                  labelText="Raum:"
+                  labelFor="location"
+                  optionList={roomList.map((item) => item.name)}
+                  optionValue={roomList.map((item) => item.id)}
+                />
               </>
             ) : (
               <>
-                <label className="labels" htmlFor="deviceOwner">
-                  Gerätebesitzer:
-                </label>
-                <select name="deviceOwner" id="deviceOwner">
-                  {personalList.map((item, index) => {
-                    return (
-                      <option key={index} value={item.id}>
-                        {item.name} {item.surname}
-                      </option>
-                    );
-                  })}
-                </select>
+                <FormPartSelect
+                  labelText="Gerätebesitzer:"
+                  labelFor="location"
+                  optionList={personalList.map(
+                    (item) => item.name + " " + item.surname
+                  )}
+                  optionValue={personalList.map((item) => item.id)}
+                />
               </>
             )}
-          </div>
+          </>
         ) : (
           ""
         )}
         {formStep >= 3 ? (
-          <div className="form__part">
-            <label className="labels" htmlFor="carePeriod">
-              Wartungsperiode:
-            </label>
-            <select name="carePeriod" id="carePeriod">
-              {carePeriods.map((item, index) => (
-                <option key={index} value={item}>
-                  jeder {item} Monate
-                </option>
-              ))}
-            </select>
-          </div>
+          <>
+            <FormPartSelect
+              labelText="Wartungsperiode:"
+              labelFor="carePeriod"
+              optionalTextFirst="jeder"
+              optionalTextLast="Monat"
+              optionList={carePeriods}
+            />
+          </>
         ) : (
           ""
         )}
 
         {formStep >= 4 ? (
-          <div className="form__part">
-            <label className="labels" htmlFor="deviceMAC">
-              Gerät Mac Adresse (optional):{" "}
-            </label>
-            <input
-              type="text"
-              id="deviceMac"
-              placeholder="etc. 00:00:5e:00:53:af"
-              pattern="^([0-9A-Fa-f]{2}[:\-]){5}([0-9A-Fa-f]{2})$"
+          <>
+            <FormPartInput
+              labelText="Gerät Mac Adresse (optional):"
+              labelFor="deviceMAC"
+              placeHolder="etc. 00:00:5e:00:53:af"
+              inputPattern="^([0-9A-Fa-f]{2}[:\-]){5}([0-9A-Fa-f]{2})$"
             />
-          </div>
+          </>
         ) : (
           ""
         )}
         {formStep >= 5 ? (
-          <div className="form__part">
-            <label className="labels" htmlFor="purchaseDate">
-              Kaufdatum (optional):
-            </label>
-            <input type="date" name="purchaseDate" id="purchaseDate" />
-          </div>
+          <>
+            <FormPartDate
+              labelText="Kaufdatum:"
+              labelFor="purchaseDate"
+              isRequired={true}
+            />
+          </>
+        ) : (
+          ""
+        )}
+        {formStep >= 6 ? (
+          <FormPartDate
+            labelText="Last Care Date (optional):"
+            labelFor="lastCareDate"
+          />
         ) : (
           ""
         )}

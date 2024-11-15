@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import FormPartInput from "./formParts/FormPartInput";
 
 export default function AddPersonalForm() {
   const [personalList, setPersonList] = useState(
@@ -9,7 +10,6 @@ export default function AddPersonalForm() {
     name: "",
     surname: "",
     department: "",
-    jobTitle: "",
   });
 
   useEffect(() => {
@@ -29,11 +29,17 @@ export default function AddPersonalForm() {
     let isUnique = !personalList.some((personal) => personal.id == id);
     if (isUnique) {
       return id;
+    } else {
+      generateId();
     }
   }
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name);
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -54,7 +60,6 @@ export default function AddPersonalForm() {
         name: "",
         surname: "",
         department: "",
-        jobTitle: "",
       });
     } else {
       alert("This personal already exists.");
@@ -64,60 +69,34 @@ export default function AddPersonalForm() {
   return (
     <>
       <form onSubmit={handleSubmit} className="add__form--container">
-        <div className="form__part">
-          <label className="labels" htmlFor="id">
-            Id :
-          </label>
-          <input value={personId} type="text" id="id" disabled={true} />
-        </div>
-        <div className="form__part">
-          <label className="labels" htmlFor="name">
-            Name :
-          </label>
-          <input
-            onChange={handleInputChange}
-            type="text"
-            name="name"
-            id="personName"
-            value={formData.name}
-          />
-        </div>
-        <div className="form__part">
-          <label className="labels" htmlFor="surname">
-            Surname :
-          </label>
-          <input
-            value={formData.surname}
-            onChange={handleInputChange}
-            type="text"
-            name="surname"
-            id="surname"
-          />
-        </div>
-        <div className="form__part">
-          <label className="labels" htmlFor="department">
-            Department :
-          </label>
-          <input
-            value={formData.department}
-            onChange={handleInputChange}
-            type="text"
-            id="department"
-            name="department"
-          />
-        </div>
-        <div className="form__part">
-          <label className="labels" htmlFor="jobTitle">
-            Job Title :
-          </label>
-          <input
-            value={formData.jobTitle}
-            onChange={handleInputChange}
-            type="text"
-            id="jobTitle"
-            name="jobTitle"
-          />
-        </div>
+        <FormPartInput
+          labelText="Id :"
+          labelFor="id"
+          inputValue={personId}
+          isDisabled={true}
+        />
+        <FormPartInput
+          onValueChange={handleInputChange}
+          labelText="Name :"
+          labelFor="name"
+          inputValue={formData.name}
+          isDisabled={false}
+        />
+
+        <FormPartInput
+          onValueChange={handleInputChange}
+          labelText="Surname :"
+          labelFor="surname"
+          inputValue={formData.surname}
+          isDisabled={false}
+        />
+        <FormPartInput
+          onValueChange={handleInputChange}
+          labelText="Department :"
+          labelFor="department"
+          inputValue={formData.department}
+          isDisabled={false}
+        />
         <button className="btn">Add Person</button>
       </form>
     </>

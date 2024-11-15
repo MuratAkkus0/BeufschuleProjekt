@@ -1,10 +1,10 @@
 .item__list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   border: 1px solid black;
   border-radius: 5px;
   margin: 0 1rem;
+  overflow-y: auto;
 }
 
 .item__list--title {
@@ -20,7 +20,9 @@
   gap: 1rem;
   align-content: flex-start;
 }
-
+.overview__items--time-pressed {
+  flex: 5;
+}
 .overview__items--all {
-  flex: 1;
+  flex: 6;
 }
