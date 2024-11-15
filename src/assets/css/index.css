@@ -31,37 +31,33 @@ body {
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
   justify-content: center;
-  align-items: center;
+}
+
+/* For All View Containers */
+.view__container {
+  width: 100%;
+  display: flex;
+  grid-column: 3/11;
+  grid-row: 1/11;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Dashboard View Container */
+.app__overview--container {
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /* Add Forms Container */
 .add__form--container {
   width: 95%;
   height: fit-content;
+  overflow: auto;
   border: 1px solid var(--main-border-color);
   padding: 1rem;
   border-radius: 0.5rem;
-  margin-top: 3rem;
   transition: 0.3s all;
-}
-
-/* For All View Containers */
-.view__container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  grid-column: 3/11;
-  grid-row: 1/11;
-}
-
-/* Dashboard View Container */
-.app__overview--container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem 0;
-  overflow-y: auto;
 }
 
 .show__more--btn {
