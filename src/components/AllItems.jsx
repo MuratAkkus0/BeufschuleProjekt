@@ -24,10 +24,9 @@ function AllItems({ deviceList, limit, onClickItem, personalList, roomList }) {
                     key={item.id}
                     name={item.name}
                     location={
-                      0
-                      // personalList.filter(
-                      //   (person) => person.id == item.ownerId
-                      // )[0].name
+                      personalList.filter(
+                        (person) => person.id == item.ownerId
+                      )[0].name
                     }
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
@@ -38,10 +37,9 @@ function AllItems({ deviceList, limit, onClickItem, personalList, roomList }) {
                     onClickItem={onClickItem}
                     key={item.id}
                     name={item.name}
-                    location={console
-                      .log
-                      // roomList.filter((room) => room.id == item.roomId)[0].name
-                      ()}
+                    location={
+                      roomList.filter((room) => room.id == item.roomId)[0].name
+                    }
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
                   />

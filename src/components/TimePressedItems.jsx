@@ -47,8 +47,7 @@ export default function TimePressedItems({
                     key={item.id}
                     name={item.name}
                     location={
-                      0
-                      // roomList.filter((room) => room.id == item.roomId)[0].name
+                      roomList.filter((room) => room.id == item.roomId)[0].name
                     }
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
