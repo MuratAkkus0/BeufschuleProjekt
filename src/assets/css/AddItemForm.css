@@ -23,6 +23,18 @@ select {
   cursor: pointer;
   overflow-y: auto;
 }
+.close-popup {
+  display: block;
+  text-align: right;
+  color: var(--main-color-two);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+.close-ico:hover {
+  cursor: pointer;
+  display: inline-block;
+  transform: scale(1.1);
+}
 
 @keyframes fadeIn {
   from {

@@ -1,9 +1,10 @@
 import { FaComputer } from "react-icons/fa6";
+import { MdDeleteForever } from "react-icons/md";
 function ItemCard(props) {
-  const { typ, name, location, nextCareDate } = props;
-  console.log(location);
+  const { id, typ, name, location, nextCareDate, onClickItem } = props;
+
   return (
-    <div className="item__card--container">
+    <div onClick={onClickItem} data-id={id} className="item__card--container">
       <div className="item__card--image">
         <FaComputer className="card__icons" />
       </div>
@@ -25,6 +26,9 @@ function ItemCard(props) {
           {new Date(nextCareDate).toLocaleDateString()}
         </p>
         <button id="sendEmailBtn">Send Email</button>
+      </div>
+      <div className="del__item">
+        <MdDeleteForever className="del__icon" />
       </div>
     </div>
   );

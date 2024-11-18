@@ -11,7 +11,7 @@ menu {
   padding: 2rem 0;
   text-align: center;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
   font-style: italic;
   border-bottom: 1px solid lightgray;
 }
@@ -27,15 +27,4 @@ menu {
 
 .menu__item:hover {
   letter-spacing: 1px;
-}
-
-.menu__item a:active,
-.menu__item a:visited,
-.menu__item a {
-  display: block;
-  height: 100%;
-  width: 100%;
-  color: inherit;
-  text-decoration: none;
-  padding: 1rem;
 }

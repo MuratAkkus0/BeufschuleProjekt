@@ -1,6 +1,6 @@
 .item__card--container {
   cursor: pointer;
-  flex: 1 1 20rem;
+  flex: 0 1 25rem;
   height: 10rem;
   border: 1px solid var(--main-color-one);
   border-radius: 5px;
@@ -44,6 +44,7 @@
 }
 
 #sendEmailBtn {
+  cursor: pointer;
   margin-top: 1rem;
   width: 7rem;
   height: 2rem;
@@ -53,4 +54,17 @@
   color: #ffffff;
   align-self: flex-end;
   transition: 0.3s all;
+}
+#sendEmailBtn:hover {
+  transform: scale(1.05);
+}
+.del__icon {
+  cursor: pointer;
+  color: var(--main-color-two);
+  font-size: 1.7rem;
+  transition: 0.3s all;
+}
+
+.del__icon:hover {
+  transform: scale(1.1);
 }
