@@ -2,7 +2,14 @@ import ItemCard from "./ItemCard";
 import "../assets/css/ItemList.css";
 import { useState } from "react";
 
-function AllItems({ deviceList, limit, onClickItem, personalList, roomList }) {
+function AllItems({
+  deviceList,
+  limit,
+  onClickItem,
+  personalList,
+  roomList,
+  setDeviceList,
+}) {
   const [showMore, setShowMore] = useState(true);
 
   return (
@@ -30,6 +37,7 @@ function AllItems({ deviceList, limit, onClickItem, personalList, roomList }) {
                     }
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
+                    setDeviceList={setDeviceList}
                   />
                 ) : (
                   <ItemCard
@@ -42,6 +50,7 @@ function AllItems({ deviceList, limit, onClickItem, personalList, roomList }) {
                     }
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
+                    setDeviceList={setDeviceList}
                   />
                 )
               )

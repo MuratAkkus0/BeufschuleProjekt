@@ -20,14 +20,12 @@ function DashboardView() {
   const [timePressedDevices, setTimePressedDevices] = useState([]);
 
   useEffect(() => {
-    // setDeviceList(JSON.parse(localStorage.getItem("devices")) ?? []);
     setTimePressedDevices(
       deviceList &&
         deviceList.filter((item) => {
           let dateDiff = new Date(
             new Date() - new Date(item.lastCareDate)
           ).getMonth();
-
           if (
             dateDiff == 0 ||
             dateDiff >= item.carePeriod ||
@@ -37,14 +35,12 @@ function DashboardView() {
           }
         })
     );
-    console.log("updated");
-  }, [showPopup]);
+  }, [deviceList]);
 
   const onClickItem = (e) => {
     e.stopPropagation();
     let id = e.target.closest(".item__card--container").dataset.id;
     let item = deviceList.filter((i) => i.id == id)[0];
-    console.log(roomList);
     setCurrentItem(item);
     setShowPopup(true);
   };
@@ -79,6 +75,7 @@ function DashboardView() {
           roomList={roomList}
           deviceList={timePressedDevices}
           limit={3}
+          setDeviceList={onChangeDeviceList}
         />
         <AllItems
           onClickItem={onClickItem}
@@ -86,6 +83,7 @@ function DashboardView() {
           roomList={roomList}
           deviceList={deviceList}
           limit={3}
+          setDeviceList={onChangeDeviceList}
         />
       </div>
     </>

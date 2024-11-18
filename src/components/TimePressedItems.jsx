@@ -8,12 +8,9 @@ export default function TimePressedItems({
   roomList,
   limit,
   onClickItem,
+  setDeviceList,
 }) {
   const [showMore, setShowMore] = useState(true);
-  deviceList.forEach((element) => {
-    console.log(roomList);
-    console.log(element);
-  });
   return (
     <>
       <div className="overview__items--time-pressed item__list">
@@ -39,6 +36,7 @@ export default function TimePressedItems({
                     }
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
+                    setDeviceList={setDeviceList}
                   />
                 ) : (
                   <ItemCard
@@ -51,6 +49,7 @@ export default function TimePressedItems({
                     }
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
+                    setDeviceList={setDeviceList}
                   />
                 )
               )

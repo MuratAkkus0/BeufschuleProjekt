@@ -133,7 +133,7 @@ function AddItemForm({
       device.id === updatedDevice.id ? updatedDevice : device
     );
     setDeviceListProp([...updatedDeviceList]);
-    setDeviceList([...updatedDeviceList]);
+    // setDeviceList([...updatedDeviceList]);
     setReadOnly(true);
   };
   useEffect(() => {
@@ -218,7 +218,7 @@ function AddItemForm({
             labelText="Gerät Mac Adresse (optional):"
             labelFor="deviceMAC"
             placeHolder="etc. 00:00:5e:00:53:af"
-            inputPattern="^([0-9A-Fa-f]{2}[:\\-]){5}([0-9A-Fa-f]{2})$"
+            inputPattern="^([0-9A-Fa-f]{2}([-:])){5}([0-9A-Fa-f]{2})$"
             inputValue={deviceMAC}
             onValueChange={(e) => setDeviceMAC(e.target.value)}
             isDisabled={readOnly}
