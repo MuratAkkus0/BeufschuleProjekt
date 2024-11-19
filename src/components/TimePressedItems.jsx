@@ -37,6 +37,7 @@ export default function TimePressedItems({
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
                     setDeviceList={setDeviceList}
+                    technicerEmail={item.technicerEmail}
                   />
                 ) : (
                   <ItemCard
@@ -50,6 +51,7 @@ export default function TimePressedItems({
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
                     setDeviceList={setDeviceList}
+                    technicerEmail={item.technicerEmail}
                   />
                 )
               )

@@ -5,8 +5,16 @@ import axios from "axios";
 import { GiLaptop } from "react-icons/gi";
 
 function ItemCard(props) {
-  const { setDeviceList, id, typ, name, location, nextCareDate, onClickItem } =
-    props;
+  const {
+    setDeviceList,
+    id,
+    typ,
+    name,
+    location,
+    nextCareDate,
+    onClickItem,
+    technicerEmail,
+  } = props;
   const [deviceList, setDeviceListLS] = useState(
     JSON.parse(localStorage.getItem("devices")) || []
   );
@@ -27,6 +35,7 @@ function ItemCard(props) {
           deviceId: id,
           deviceLocation: location,
           deviceTyp: typ,
+          technicerEmail: technicerEmail,
         });
       }
       alert("Email sucessfully sended.");

@@ -38,6 +38,7 @@ function AllItems({
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
                     setDeviceList={setDeviceList}
+                    technicerEmail={item.technicerEmail}
                   />
                 ) : (
                   <ItemCard
@@ -51,6 +52,7 @@ function AllItems({
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
                     setDeviceList={setDeviceList}
+                    technicerEmail={item.technicerEmail}
                   />
                 )
               )

@@ -28,6 +28,9 @@ function AddItemForm({
   const [deviceCarePeriod, setDeviceCarePeriod] = useState(
     item.carePeriod || ""
   );
+  const [deviceTechnicerEmail, setDeviceTechnicerEmail] = useState(
+    item.technicerEmail || ""
+  );
   const [deviceLocation, setDeviceLocation] = useState(
     item.ownerId || item.roomId || ""
   );
@@ -79,17 +82,18 @@ function AddItemForm({
       console.log(form.location.value);
 
       const lastCareDate =
-        new Date(form.lastCareDate.value) >= new Date(form.purchaseDate.value)
-          ? form.lastCareDate.value
-          : form.purchaseDate.value;
+        new Date(deviceLastCareDate) >= new Date(devicePurchaseDate)
+          ? deviceLastCareDate
+          : devicePurchaseDate;
 
       newDevice.current = {
         id: deviceId,
         name: `${deviceTyp.split(" ")[0]}-${deviceId}`,
         typ: deviceTyp,
         carePeriod: form.carePeriod.value,
-        purchaseDate: form.purchaseDate.value,
-        MAC: form.deviceMAC.value || "",
+        technicerEmail: deviceTechnicerEmail,
+        purchaseDate: devicePurchaseDate,
+        MAC: deviceMAC || "",
 
         [deviceTyp === "Laptop" ? "ownerId" : "roomId"]: form.location.value,
 
@@ -147,17 +151,18 @@ function AddItemForm({
 
     const form = e.target;
     const lastCareDate =
-      new Date(form.lastCareDate.value) >= new Date(form.purchaseDate.value)
-        ? form.lastCareDate.value
-        : form.purchaseDate.value;
+      new Date(deviceLastCareDate) >= new Date(devicePurchaseDate)
+        ? deviceLastCareDate
+        : devicePurchaseDate;
 
     const updatedDevice = {
       ...item,
       name: `${deviceTyp.split(" ")[0]}-${deviceId}`,
       typ: deviceTyp,
       carePeriod: form.carePeriod.value,
-      purchaseDate: form.purchaseDate.value,
-      MAC: form.deviceMAC.value || "",
+      technicerEmail: deviceTechnicerEmail,
+      purchaseDate: devicePurchaseDate,
+      MAC: deviceMAC || "",
       [deviceTyp === "Laptop" ? "ownerId" : "roomId"]: form.location.value,
       lastCareDate: lastCareDate,
       nextCareDate: calculateNextCareDate(lastCareDate, form.carePeriod.value),
@@ -195,26 +200,39 @@ function AddItemForm({
           isDisabled={readOnly}
         />
         {formStep >= 2 && (
-          <FormPartSelect
-            labelText={deviceTyp === "Laptop" ? "Gerätebesitzer:" : "Raum:"}
-            labelFor="location"
-            optionList={deviceTyp === "Laptop" ? personalList : roomList}
-            selectValue={deviceLocation}
-            onValueChange={(e) => setDeviceLocation(e.target.value)}
-            isDisabled={readOnly}
-          />
+          <>
+            <FormPartSelect
+              labelText={deviceTyp === "Laptop" ? "Gerätebesitzer:" : "Raum:"}
+              labelFor="location"
+              optionList={deviceTyp === "Laptop" ? personalList : roomList}
+              selectValue={deviceLocation}
+              onValueChange={(e) => setDeviceLocation(e.target.value)}
+              isDisabled={readOnly}
+            />
+          </>
         )}
         {formStep >= 3 && (
-          <FormPartSelect
-            labelText="Wartungsperiode:"
-            labelFor="carePeriod"
-            optionList={carePeriods}
-            optionalTextFirst="jeder"
-            optionalTextLast="Monat"
-            selectValue={deviceCarePeriod}
-            onValueChange={(e) => setDeviceCarePeriod(e.target.value)}
-            isDisabled={readOnly}
-          />
+          <>
+            <FormPartSelect
+              labelText="Wartungsperiode:"
+              labelFor="carePeriod"
+              optionList={carePeriods}
+              optionalTextFirst="jeder"
+              optionalTextLast="Monat"
+              selectValue={deviceCarePeriod}
+              onValueChange={(e) => setDeviceCarePeriod(e.target.value)}
+              isDisabled={readOnly}
+            />
+            <FormPartInput
+              labelText="Technikers Email:"
+              labelFor="technicerEmail"
+              inputValue={deviceTechnicerEmail}
+              onValueChange={(e) => setDeviceTechnicerEmail(e.target.value)}
+              isDisabled={readOnly}
+              isRequired={true}
+              inputType="email"
+            />
+          </>
         )}
         {formStep >= 4 && (
           <FormPartInput

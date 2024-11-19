@@ -8,6 +8,7 @@ export default function FormPartInput(props) {
     isRequired,
     placeHolder,
     inputPattern,
+    inputType = "text",
   } = props;
 
   return (
@@ -19,7 +20,7 @@ export default function FormPartInput(props) {
         <input
           onChange={onValueChange}
           value={inputValue}
-          type="text"
+          type={inputType}
           id={labelFor}
           name={labelFor}
           disabled={isDisabled}

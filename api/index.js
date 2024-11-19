@@ -199,7 +199,12 @@ p{
 
     `;
 
-async function sendEmail({ deviceId, deviceLocation, deviceTyp }) {
+async function sendEmail({
+  deviceId,
+  deviceLocation,
+  deviceTyp,
+  technicerEmail,
+}) {
   // deviceId, deviceLocation, deviceTyp
   return new Promise(async (resolve, reject) => {
     let mailTitle = "Regelmäßige Wartung eines bestimmten Computers im Büro";
@@ -336,7 +341,7 @@ async function sendEmail({ deviceId, deviceLocation, deviceTyp }) {
 
     const info = await transporter.sendMail({
       from: "ScooTeq GmbH <akkusmurat123@gmail.com>",
-      to: "akkusmurat123@gmail.com",
+      to: technicerEmail,
       subject: "test,test",
       // text: "hallo",
       html: html,
