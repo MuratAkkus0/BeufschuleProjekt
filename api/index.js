@@ -342,7 +342,7 @@ async function sendEmail({
     const info = await transporter.sendMail({
       from: "ScooTeq GmbH <akkusmurat123@gmail.com>",
       to: technicerEmail,
-      subject: "test,test",
+      subject: mailTitle,
       // text: "hallo",
       html: html,
     });
