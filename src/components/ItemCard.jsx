@@ -23,7 +23,7 @@ function ItemCard(props) {
     e.stopPropagation();
     try {
       if ((typ, id, location)) {
-        axios.post("http://localhost:5000/send_mail", {
+        axios.post("https://beufschule-projekt.vercel.app/send_mail", {
           deviceId: id,
           deviceLocation: location,
           deviceTyp: typ,
