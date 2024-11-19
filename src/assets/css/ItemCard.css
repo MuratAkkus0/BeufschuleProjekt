@@ -58,13 +58,3 @@
 #sendEmailBtn:hover {
   transform: scale(1.05);
 }
-.del__icon {
-  cursor: pointer;
-  color: var(--main-color-two);
-  font-size: 1.7rem;
-  transition: 0.3s all;
-}
-
-.del__icon:hover {
-  transform: scale(1.1);
-}

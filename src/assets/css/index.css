@@ -61,6 +61,12 @@ body {
   transition: 0.3s all;
 }
 
+.width95 {
+  width: 95%;
+}
+.mt1rem {
+  margin-top: 1rem;
+}
 .show__more--btn {
   height: fit-content;
   display: flex;
@@ -94,4 +100,15 @@ body {
   color: #aaa;
   font-size: 1.1rem;
   font-weight: 500;
+}
+/* Delete icon */
+.del__icon {
+  cursor: pointer;
+  color: var(--main-color-two);
+  font-size: 1.7rem;
+  transition: 0.3s all;
+}
+
+.del__icon:hover {
+  transform: scale(1.1);
 }

@@ -343,7 +343,6 @@ async function sendEmail({
       from: "ScooTeq GmbH <akkusmurat123@gmail.com>",
       to: technicerEmail,
       subject: mailTitle,
-      // text: "hallo",
       html: html,
     });
 

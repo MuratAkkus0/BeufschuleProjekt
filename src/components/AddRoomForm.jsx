@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import FormPartInput from "./formParts/FormPartInput";
-function AddRoomForm() {
-  const [roomList, setRoomList] = useState(
-    JSON.parse(localStorage.getItem("roomList")) ?? []
-  );
+function AddRoomForm({ roomList, setRoomList }) {
   const [roomId, setRoomId] = useState(generateId());
   const [roomName, setRoomName] = useState("");
-
-  useEffect(() => {
-    localStorage.setItem("roomList", JSON.stringify(roomList));
-  }, [roomList]);
 
   function generateId() {
     let id = Math.floor(Math.random() * 1000);
