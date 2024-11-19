@@ -1,8 +1,20 @@
 import express from "express";
 import nodemailer from "nodemailer";
 import cors from "cors";
+import helmet from "helmet";
 const app = express();
 const port = 3000;
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "/"],
+      },
+    },
+  })
+);
 
 app.use(cors());
 app.use(express.json({ limit: "25mb" }));
