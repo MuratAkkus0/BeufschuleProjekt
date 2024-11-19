@@ -1,6 +1,7 @@
 .item__popup--container {
   z-index: 999;
-  position: absolute;
+  min-height: 100%;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -13,7 +14,6 @@
 
 .item__popup--container > form {
   cursor: auto;
-  width: 80%;
-
+  width: 55%;
   background-color: white !important;
 }

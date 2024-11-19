@@ -6,3 +6,7 @@
   - Wartungs Termin Period
   - Mac Adresse
   - Kauf Datum
+
+`npm i 
+nodemon server/app.js
+npm run dev`

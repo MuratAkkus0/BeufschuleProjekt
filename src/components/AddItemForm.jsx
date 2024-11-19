@@ -48,7 +48,9 @@ function AddItemForm({
   const carePeriods = [1, 3, 6, 12, 24, 36];
 
   useEffect(() => {
-    setFormStep(totalFormSteps);
+    if (isReadOnly) {
+      setFormStep(totalFormSteps);
+    }
   }, [isReadOnly]);
 
   // Generate a unique device ID
@@ -133,7 +135,7 @@ function AddItemForm({
       device.id === updatedDevice.id ? updatedDevice : device
     );
     setDeviceListProp([...updatedDeviceList]);
-    // setDeviceList([...updatedDeviceList]);
+    setDeviceList([...updatedDeviceList]);
     setReadOnly(true);
   };
   useEffect(() => {
@@ -166,6 +168,7 @@ function AddItemForm({
   return (
     <>
       <form
+        onClick={(e) => e.stopPropagation()}
         onSubmit={isUpdate ? updateItem : handleSubmit}
         className="add__form--container"
         id="addItem"

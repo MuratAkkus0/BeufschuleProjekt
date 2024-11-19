@@ -20,15 +20,20 @@ function DashboardView() {
   const [timePressedDevices, setTimePressedDevices] = useState([]);
 
   useEffect(() => {
+    console.log("active");
     setTimePressedDevices(
       deviceList &&
         deviceList.filter((item) => {
           let dateDiff = new Date(
             new Date() - new Date(item.lastCareDate)
           ).getMonth();
+          console.log(item);
+          console.log(
+            (dateDiff == 0 || dateDiff >= item.carePeriod) &&
+              item.carePeriod - dateDiff <= 2
+          );
           if (
-            dateDiff == 0 ||
-            dateDiff >= item.carePeriod ||
+            (dateDiff == 0 || dateDiff >= item.carePeriod) &&
             item.carePeriod - dateDiff <= 2
           ) {
             return item;
@@ -44,7 +49,9 @@ function DashboardView() {
     setCurrentItem(item);
     setShowPopup(true);
   };
-  const onClosePopup = () => {
+  const onClosePopup = (e) => {
+    e.stopPropagation();
+    console.log(e.target);
     setShowPopup(false);
   };
   const onChangeDeviceList = (newList) => {

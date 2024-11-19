@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { FaComputer } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
+import axios from "axios";
 import { GiLaptop } from "react-icons/gi";
+
 function ItemCard(props) {
   const { setDeviceList, id, typ, name, location, nextCareDate, onClickItem } =
     props;
@@ -16,6 +18,22 @@ function ItemCard(props) {
     console.log(setDeviceList);
     setDeviceList([...newList]);
   };
+
+  async function sendEmail(e) {
+    e.stopPropagation();
+    try {
+      if ((typ, id, location)) {
+        axios.post("http://localhost:5000/send_mail", {
+          deviceId: id,
+          deviceLocation: location,
+          deviceTyp: typ,
+        });
+      }
+      alert("Email sucessfully sended.");
+    } catch (error) {
+      console.log("send Email: ", error);
+    }
+  }
 
   return (
     <div onClick={onClickItem} data-id={id} className="item__card--container">
@@ -43,7 +61,9 @@ function ItemCard(props) {
           <span className="detail__subtitles">Wartungstermin:</span>{" "}
           {new Date(nextCareDate).toLocaleDateString()}
         </p>
-        <button id="sendEmailBtn">Send Email</button>
+        <button onClick={sendEmail} id="sendEmailBtn">
+          Send Email
+        </button>
       </div>
       <div onClick={deleteItem} className="del__item">
         <MdDeleteForever className="del__icon" />
