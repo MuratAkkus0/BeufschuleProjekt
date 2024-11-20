@@ -25,16 +25,12 @@ a:active {
   color: black;
 }
 
-.main {
-  display:flex;
-justify-content:center;
-align-items:center;
-}
-
 .main-container{
   width: 100%;
   max-width:600px;
   height: 100vh;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 footer {
