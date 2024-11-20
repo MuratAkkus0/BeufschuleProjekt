@@ -3,7 +3,7 @@ function Navbar() {
   return (
     <>
       <menu>
-        <div className="app__logo">Wartungsterminen Verwalten</div>
+        <div className="app__logo">Wartungstermine Verwalten</div>
         <li className="menu__item">
           <Link className="a__link" to={"/"}>
             Dashboard
