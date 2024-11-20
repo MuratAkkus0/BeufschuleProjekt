@@ -35,8 +35,6 @@ align-items:center;
   width: 100%;
   max-width:600px;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 footer {
