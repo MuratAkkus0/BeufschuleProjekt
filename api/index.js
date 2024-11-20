@@ -215,8 +215,7 @@ async function sendEmail({
   Gerätname: ${deviceTyp}-${deviceId}<br>
   ID: ${deviceId}<br>
   Typ : ${deviceTyp}<br>
-  ${deviceTyp == "Laptop" ? "Besitzer" : "Standort"}: ${deviceLocation}<br>
- <br><br>
+  ${deviceTyp == "Laptop" ? "Besitzer" : "Standort"}: ${deviceLocation}<br><br>
   Wir bitten Sie, die Wartungsarbeiten während der regulären Arbeitszeiten von Montag bis Freitag durchzuführen. Eine gesonderte Terminvereinbarung ist nicht erforderlich. Sie können die Wartung flexibel innerhalb dieser Zeiten vornehmen.
  <br><br>
   Bitte bestätigen Sie uns kurz, dass die Arbeiten wie beschrieben durchgeführt werden können. Bei Rückfragen oder weiteren Details stehen wir Ihnen gerne zur Verfügung.
