@@ -116,6 +116,7 @@ header .logo {
 
 .logo .logo-img {
   height: 5rem;
+  max-width: 5rem;
 }
 
 .mobile-menu i {
