@@ -13,25 +13,24 @@ app.use((req, res, next) => {
 });
 
 const styles = `* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a,
 a:visited,
 a:active {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 main {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-    @import "responsiveCss/footer_responsive.css";
 footer {
   width: 100%;
   height: 250px;
@@ -102,9 +101,11 @@ header {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ccc;
+  padding: 0 1rem;
 }
 
 header .logo {
+  height: 100%;
   display: flex;
   margin-right: auto;
 }
@@ -114,47 +115,9 @@ header .logo {
 }
 
 .logo .logo-img {
-  height: 80px;
+  height: 5rem;
 }
 
-.logo .carrier-btn {
-  align-self: flex-end;
-  height: 25px;
-  color: #505050;
-  padding: 5px 8px;
-  margin-left: 15px;
-  border-radius: 2px;
-  border: 1px solid #ccc;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: lighter;
-  transition: all 0.3s;
-}
-
-.logo .carrier-btn::before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 5px solid;
-  border-color: transparent #505050 transparent transparent;
-}
-.logo .carrier-btn:hover {
-  transition: all 0.2s ease-in-out;
-  transform: scale(1.01);
-}
-.mobile-menu {
-  cursor: pointer;
-  font-size: 28px;
-  opacity: 0;
-  display: none;
-}
 .mobile-menu i {
   padding: 0 20px;
 }
@@ -178,22 +141,17 @@ menu > .menu-item:hover {
   text-decoration: underline 1px #ccc;
   transition: all 0.2s linear;
 }
-section{
-    flex: 1;
-    height: 100%;
-    width: 100%;
-    padding: 30px 0;
-    display: flex;
-    flex-shrink: 0;
-    justify-content: center;
-    align-items: center;
+section {
+  flex: 1;
+  width: 100%;
 }
-h1{
-    width: 100%;
-    text-align: center;
+h1 {
+  width: 100%;
+  text-align: center;
 }
-p{
-    width: 100%;
+#mailText {
+  word-break: keep-all;
+  padding: 1rem;
 }
 
 
@@ -252,9 +210,6 @@ async function sendEmail({
       <main>
         <header>
           <div class="logo">
-            <div class="mobile-menu">
-              <i class="fas fa-bars"></i>
-            </div>
             <div class="logo-container">
               <img
                 class="logo-img"
