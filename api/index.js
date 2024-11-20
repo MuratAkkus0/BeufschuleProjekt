@@ -24,13 +24,13 @@ a:active {
   text-decoration: none;
   color: black;
 }
-body{
+.body{
 display:flex;
 justify-content:center;
 align-items:center;
 }
 
-main {
+.main {
   width: 100%;
   max-width:600px;
   height: 100vh;
@@ -192,8 +192,8 @@ async function sendEmail({
       <style>${styles}</style>
     </head>
   
-    <body>
-      <main>
+    <body class="body">
+      <main class="main">
         <header>
           <div class="logo">
             <div class="logo-container">
