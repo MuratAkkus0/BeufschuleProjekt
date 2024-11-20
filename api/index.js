@@ -150,6 +150,7 @@ h1 {
   text-align: center;
 }
 #mailText {
+  word-break: keep-all;
   padding: 1rem;
 }
 
@@ -163,30 +164,9 @@ async function sendEmail({
   technicerEmail,
 }) {
   // deviceId, deviceLocation, deviceTyp
+  alert(deviceTyp);
   return new Promise(async (resolve, reject) => {
     let mailTitle = "Regelmäßige Wartung eines bestimmten Computers im Büro";
-    let mailText = `
-  </br>
-    Sehr geehrte Damen und Herren,
-  
-  wir möchten Sie darüber informieren, dass es notwendig ist, eine regelmäßige Wartung eines bestimmten Computers in unserem Büro durchzuführen. Die Wartung betrifft den Computer mit der folgenden Identifikation und Standort:
-  </br>
-  Gerätname: ${deviceTyp}-${deviceId}
-  ID: ${deviceId}
-  Typ : ${deviceTyp}
-  ${deviceTyp == "Laptop" ? "Besitzer" : "Standort"}: ${deviceLocation}
-  </br>
-  Wir bitten Sie, die Wartungsarbeiten während der regulären Arbeitszeiten von Montag bis Freitag durchzuführen. Eine gesonderte Terminvereinbarung ist nicht erforderlich. Sie können die Wartung flexibel innerhalb dieser Zeiten vornehmen.
-  </br>
-  Bitte bestätigen Sie uns kurz, dass die Arbeiten wie beschrieben durchgeführt werden können. Bei Rückfragen oder weiteren Details stehen wir Ihnen gerne zur Verfügung.
-  </br>
-  Vielen Dank für Ihre Unterstützung.
-  </br>
-  Mit freundlichen Grüßen,
-  </br>
-  ScooTeq GmbH
-  
-  `;
 
     const html = `<!DOCTYPE html>
   <html lang="en">
@@ -228,7 +208,27 @@ async function sendEmail({
           <div class="content-container">
             <h1 id="mailTitle">${mailTitle}</h1><br><br>
             <p id="mailText">
-            ${mailText}
+            
+    Sehr geehrte Damen und Herren,<br><br>
+  
+  wir möchten Sie darüber informieren, dass es notwendig ist, eine regelmäßige Wartung eines bestimmten Computers in unserem Büro durchzuführen. Die Wartung betrifft den Computer mit der folgenden Identifikation und Standort:
+  <br><br>
+  Gerätname: ${deviceTyp}-${deviceId}<br>
+  ID: ${deviceId}<br>
+  Typ : ${deviceTyp}<br>
+    ${deviceTyp == "Laptop" ? "Besitzer" : "Standort"}: ${deviceLocation}
+<br>
+ <br><br>
+  Wir bitten Sie, die Wartungsarbeiten während der regulären Arbeitszeiten von Montag bis Freitag durchzuführen. Eine gesonderte Terminvereinbarung ist nicht erforderlich. Sie können die Wartung flexibel innerhalb dieser Zeiten vornehmen.
+ <br><br>
+  Bitte bestätigen Sie uns kurz, dass die Arbeiten wie beschrieben durchgeführt werden können. Bei Rückfragen oder weiteren Details stehen wir Ihnen gerne zur Verfügung.
+  <br>
+  Vielen Dank für Ihre Unterstützung.
+  <br><br>
+  Mit freundlichen Grüßen,
+  <br>
+  ScooTeq GmbH
+            
             </p>
           </div>
         </section>
