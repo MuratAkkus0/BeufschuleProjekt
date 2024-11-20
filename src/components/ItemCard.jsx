@@ -19,23 +19,16 @@ function ItemCard(props) {
   } = props;
 
   const deletedNotify = () => toast.success("Item deleted successfully!");
-  const [isEmailSended, setIsEmailSended] = useState(false);
-
-  useEffect(() => {
-    console.log(deviceList);
-  }, [deviceList]);
 
   const deleteItem = (e) => {
     e.stopPropagation();
     deletedNotify();
     let newList = deviceList.filter((item) => item.id !== id);
-
     setDeviceList([...newList]);
   };
 
   async function sendEmail(e) {
     e.stopPropagation();
-    setIsEmailSended(true);
     try {
       if ((typ, id, location)) {
         axios.post("https://beufschule-projekt.vercel.app/send_mail", {
@@ -46,9 +39,11 @@ function ItemCard(props) {
         });
       }
       alert("Email sucessfully sended.");
+      if (isEmailSended) {
+        deleteItem();
+      }
     } catch (error) {
       console.log("send Email: ", error);
-      isEmailSended(false);
     }
   }
 
@@ -78,12 +73,8 @@ function ItemCard(props) {
           <span className="detail__subtitles">Wartungstermin:</span>{" "}
           {new Date(nextCareDate).toLocaleDateString()}
         </p>
-        <button
-          onClick={sendEmail}
-          style={isEmailSended ? { backgroundColor: "green" } : {}}
-          id="sendEmailBtn"
-        >
-          {isEmailSended ? "Resend Email" : "Send Email"}
+        <button onClick={sendEmail} id="sendEmailBtn">
+          Send Email
         </button>
       </div>
       <div onClick={deleteItem} className="del__item">
