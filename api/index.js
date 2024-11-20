@@ -150,7 +150,6 @@ h1 {
   text-align: center;
 }
 #mailText {
-  word-break: keep-all;
   padding: 1rem;
 }
 
