@@ -30,11 +30,15 @@ function AllItems({
                     onClickItem={onClickItem}
                     key={item.id}
                     name={item.name}
-                    location={
+                    location={`${
                       personalList.filter(
                         (person) => person.id == item.ownerId
                       )[0].name
-                    }
+                    } ${
+                      personalList.filter(
+                        (person) => person.id == item.ownerId
+                      )[0].surname
+                    }`}
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
                     setDeviceList={setDeviceList}
