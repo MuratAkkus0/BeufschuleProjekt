@@ -114,7 +114,7 @@ header .logo {
   display: flex;
 }
 
-.logo .logo-img {
+.logo-img {
   height: 5rem;
   max-width: 5rem;
 }
