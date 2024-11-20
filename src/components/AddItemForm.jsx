@@ -3,6 +3,8 @@ import "../assets/css/AddItemForm.css";
 import FormPartInput from "./formParts/FormPartInput";
 import FormPartSelect from "./formParts/FormPartSelect";
 import FormPartDate from "./formParts/FormPartDate";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 function AddItemForm({
   item = {},
@@ -49,6 +51,9 @@ function AddItemForm({
   const totalFormSteps = 6;
 
   const carePeriods = [1, 3, 6, 12, 24, 36];
+
+  const addedNotify = () => toast.success("Item successfuly added !");
+  const updatedNotify = () => toast.success("Item successfuly updated !");
 
   useEffect(() => {
     if (isReadOnly) {
@@ -105,7 +110,8 @@ function AddItemForm({
           form.carePeriod.value
         ),
       };
-
+      console.log("ok");
+      addedNotify();
       saveDevice(newDevice.current);
       //reset form
       form.reset();
@@ -138,6 +144,7 @@ function AddItemForm({
     const updatedDeviceList = [...deviceList].map((device) =>
       device.id === updatedDevice.id ? updatedDevice : device
     );
+    updatedNotify();
     setDeviceListProp([...updatedDeviceList]);
     setDeviceList([...updatedDeviceList]);
     setReadOnly(true);

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import FormPartInput from "./formParts/FormPartInput";
+import { toast } from "react-toastify";
 function AddRoomForm({ roomList, setRoomList }) {
   const [roomId, setRoomId] = useState(generateId());
   const [roomName, setRoomName] = useState("");
+  const addedNotify = () => toast.success("Room successfuly added!");
 
   function generateId() {
     let id = Math.floor(Math.random() * 1000);
@@ -15,6 +17,7 @@ function AddRoomForm({ roomList, setRoomList }) {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
+    addedNotify();
     setRoomList((prev) => [...prev, { id: roomId, name: roomName }]);
     setRoomId(generateId());
     setRoomName("");

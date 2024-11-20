@@ -54,7 +54,6 @@ body {
 .add__form--container {
   width: 95%;
   height: fit-content;
-  overflow: auto;
   border: 1px solid var(--main-border-color);
   padding: 1rem;
   border-radius: 0.5rem;

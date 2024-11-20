@@ -1,4 +1,5 @@
 - Add Item Form
+
   - Gerät Id
   - Gerät Typ
   - Computer Name
@@ -7,6 +8,9 @@
   - Mac Adresse
   - Kauf Datum
 
+  Change first the host email adress in src/api/index.js.
+  Then change Api key for post request in ItemCard.jsx component and set it to http://localhost:3000/send_mail
+
 `npm i 
-nodemon server/app.js
+npm run server
 npm run dev`

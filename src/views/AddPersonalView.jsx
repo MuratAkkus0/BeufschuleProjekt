@@ -15,7 +15,10 @@ function AddPersonalView() {
     <>
       <Navbar />
       <div className="add__personal--container view__container">
-        <AddPersonalForm />
+        <AddPersonalForm
+          personalList={personalList}
+          setPersonalList={setPersonalList}
+        />
         <div className="item__list  mt1rem width95">
           <div className="item__list--title room__list--title">
             <span>Id</span>

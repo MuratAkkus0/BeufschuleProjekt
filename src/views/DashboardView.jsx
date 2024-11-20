@@ -27,11 +27,6 @@ function DashboardView() {
           let dateDiff = new Date(
             new Date() - new Date(item.lastCareDate)
           ).getMonth();
-          console.log(item);
-          console.log(
-            (dateDiff == 0 || dateDiff >= item.carePeriod) &&
-              item.carePeriod - dateDiff <= 2
-          );
           if (
             (dateDiff == 0 || dateDiff >= item.carePeriod) &&
             item.carePeriod - dateDiff <= 2
@@ -40,6 +35,7 @@ function DashboardView() {
           }
         })
     );
+    localStorage.setItem("devices", JSON.stringify(deviceList));
   }, [deviceList]);
 
   const onClickItem = (e) => {
@@ -52,12 +48,10 @@ function DashboardView() {
   const onClosePopup = (e) => {
     e.stopPropagation();
     console.log(e.target);
+    localStorage.setItem("isEditActive", false);
     setShowPopup(false);
   };
-  const onChangeDeviceList = (newList) => {
-    let list = [...newList];
-    setDeviceList([...list]);
-  };
+
   return (
     <>
       <Navbar />
@@ -70,7 +64,7 @@ function DashboardView() {
               roomList={roomList}
               onClosePopup={onClosePopup}
               deviceList={deviceList}
-              setDeviceList={onChangeDeviceList}
+              setDeviceList={setDeviceList}
             />
           </>
         ) : (
@@ -81,8 +75,9 @@ function DashboardView() {
           personalList={personalList}
           roomList={roomList}
           deviceList={timePressedDevices}
+          allDevicesList={deviceList}
           limit={3}
-          setDeviceList={onChangeDeviceList}
+          setDeviceList={setDeviceList}
         />
         <AllItems
           onClickItem={onClickItem}
@@ -90,7 +85,7 @@ function DashboardView() {
           roomList={roomList}
           deviceList={deviceList}
           limit={3}
-          setDeviceList={onChangeDeviceList}
+          setDeviceList={setDeviceList}
         />
       </div>
     </>

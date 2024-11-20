@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
+import { toast } from "react-toastify";
+const deletedNotify = () => toast.success("Item deleted successfuly!!");
+const notDeletedNotify = () =>
+  toast.error(
+    "Deleting an item failed! This item cannot be deleted. Please delete first items that use this item."
+  );
 
 function ListItem(props) {
   const {
@@ -20,11 +26,10 @@ function ListItem(props) {
     console.log(canDelete);
     if (canDelete) {
       let newList = [...itemList.filter((item) => item.id !== itemId)];
-      setList(newList);
+      setList([...newList]);
+      deletedNotify();
     } else {
-      alert(
-        "This device cannot be deleted. Please delete first items that use this item."
-      );
+      notDeletedNotify();
     }
   };
   return (

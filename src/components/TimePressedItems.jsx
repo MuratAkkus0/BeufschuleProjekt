@@ -9,8 +9,10 @@ export default function TimePressedItems({
   limit,
   onClickItem,
   setDeviceList,
+  allDevicesList,
 }) {
   const [showMore, setShowMore] = useState(true);
+  console.log(limit && deviceList.length > limit);
   return (
     <>
       <div className="overview__items--time-pressed item__list">
@@ -42,6 +44,7 @@ export default function TimePressedItems({
                     typ={item.typ}
                     setDeviceList={setDeviceList}
                     technicerEmail={item.technicerEmail}
+                    deviceList={allDevicesList}
                   />
                 ) : (
                   <ItemCard

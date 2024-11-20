@@ -54,6 +54,7 @@
   color: #ffffff;
   align-self: flex-end;
   transition: 0.3s all;
+  position: relative;
 }
 #sendEmailBtn:hover {
   transform: scale(1.05);

@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import FormPartInput from "./formParts/FormPartInput";
+import { toast } from "react-toastify";
 
-export default function AddPersonalForm() {
-  const [personalList, setPersonList] = useState(
-    JSON.parse(localStorage.getItem("personalList")) ?? []
-  );
+export default function AddPersonalForm({ personalList, setPersonalList }) {
   const [personId, setPersonId] = useState(generateId());
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
     department: "",
   });
+
+  const addedNotify = () => toast.success("Person successfuly added!");
+  const notAddedNotify = () => toast.error("Adding a person failed!");
 
   useEffect(() => {
     let isUnique = true;
@@ -54,7 +55,8 @@ export default function AddPersonalForm() {
     };
     let isUnique = !personalList.some((person) => person.id === personId);
     if (isUnique) {
-      setPersonList((prev) => [...prev, person]);
+      addedNotify();
+      setPersonalList((prev) => [...prev, person]);
       setPersonId(generateId());
       setFormData({
         name: "",
@@ -62,6 +64,7 @@ export default function AddPersonalForm() {
         department: "",
       });
     } else {
+      notAddedNotify();
       alert("This personal already exists.");
     }
   };

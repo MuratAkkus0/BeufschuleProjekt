@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaComputer } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 import { GiLaptop } from "react-icons/gi";
+import { toast } from "react-toastify";
 
 function ItemCard(props) {
   const {
@@ -14,21 +15,27 @@ function ItemCard(props) {
     nextCareDate,
     onClickItem,
     technicerEmail,
+    deviceList,
   } = props;
-  const [deviceList, setDeviceListLS] = useState(
-    JSON.parse(localStorage.getItem("devices")) || []
-  );
+
+  const deletedNotify = () => toast.success("Item deleted successfully!");
+  const [isEmailSended, setIsEmailSended] = useState(false);
+
+  useEffect(() => {
+    console.log(deviceList);
+  }, [deviceList]);
+
   const deleteItem = (e) => {
     e.stopPropagation();
-
+    deletedNotify();
     let newList = deviceList.filter((item) => item.id !== id);
-    localStorage.setItem("devices", JSON.stringify(newList));
-    console.log(setDeviceList);
+
     setDeviceList([...newList]);
   };
 
   async function sendEmail(e) {
     e.stopPropagation();
+    setIsEmailSended(true);
     try {
       if ((typ, id, location)) {
         axios.post("https://beufschule-projekt.vercel.app/send_mail", {
@@ -41,6 +48,7 @@ function ItemCard(props) {
       alert("Email sucessfully sended.");
     } catch (error) {
       console.log("send Email: ", error);
+      isEmailSended(false);
     }
   }
 
@@ -70,8 +78,12 @@ function ItemCard(props) {
           <span className="detail__subtitles">Wartungstermin:</span>{" "}
           {new Date(nextCareDate).toLocaleDateString()}
         </p>
-        <button onClick={sendEmail} id="sendEmailBtn">
-          Send Email
+        <button
+          onClick={sendEmail}
+          style={isEmailSended ? { backgroundColor: "green" } : {}}
+          id="sendEmailBtn"
+        >
+          {isEmailSended ? "Resend Email" : "Send Email"}
         </button>
       </div>
       <div onClick={deleteItem} className="del__item">
