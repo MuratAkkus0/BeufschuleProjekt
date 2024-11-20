@@ -27,6 +27,7 @@ a:active {
 
 main {
   width: 100%;
+  max-width:15rem;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -116,6 +117,7 @@ header .logo {
 
 .logo-img {
   height: 5rem;
+  max-height:5rem;
   max-width: 5rem;
 }
 
