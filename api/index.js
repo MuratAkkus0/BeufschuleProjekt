@@ -29,8 +29,6 @@ a:active {
   width: 100%;
   max-width:600px;
   height: 100vh;
-  margin-left: 50%;
-  transform: translateX(-50%);
 }
 
 footer {
