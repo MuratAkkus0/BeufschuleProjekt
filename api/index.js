@@ -24,10 +24,15 @@ a:active {
   text-decoration: none;
   color: black;
 }
+body{
+display:flex;
+justify-content:center;
+align-items:center;
+}
 
 main {
   width: 100%;
-  max-width:15rem;
+  max-width:600px;
   height: 100vh;
   display: flex;
   flex-direction: column;
