@@ -11,7 +11,7 @@ function AllItems({
   setDeviceList,
 }) {
   const [showMore, setShowMore] = useState(true);
-  let person;
+
   return (
     <>
       <div className="overview__items--all item__list">
@@ -30,12 +30,11 @@ function AllItems({
                     onClickItem={onClickItem}
                     key={item.id}
                     name={item.name}
-                    location={() => {
-                      person = personalList.filter(
+                    location={
+                      personalList.filter(
                         (person) => person.id == item.ownerId
-                      )[0];
-                      return `${person.name} ${person.surname}`;
-                    }}
+                      )[0].name
+                    }
                     nextCareDate={item.nextCareDate}
                     typ={item.typ}
                     setDeviceList={setDeviceList}
