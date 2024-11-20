@@ -24,19 +24,21 @@ a:active {
   text-decoration: none;
   color: black;
 }
-.body{
-display:flex;
+
+.main {
+  display:flex;
 justify-content:center;
 align-items:center;
 }
 
-.main {
+.main-container{
   width: 100%;
   max-width:600px;
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
 footer {
   width: 100%;
   height: 250px;
@@ -194,6 +196,7 @@ async function sendEmail({
   
     <body class="body">
       <main class="main">
+        <div class="main-container">
         <header>
           <div class="logo">
             <div class="logo-container">
@@ -263,6 +266,7 @@ async function sendEmail({
             </div>
           </div>
         </footer>
+        </div>
       </main>
     </body>
   </html>
